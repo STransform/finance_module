@@ -1,7 +1,7 @@
 # OTech-ERP
 
-This system consist of hr modules. Initially, it is launched with the HRMS module. Additional modules, such as finance will be integrated at a later stage.
-  
+This system consist of finance modules. Initially, it is launched with the HRMS module. Now we started customizing finance modules.integration will be done at a later stage.
+
 ## Technology stack
 - Python: Programming language
 - JS: Client-side interactions and dynamic functionalities
@@ -12,20 +12,14 @@ This system consist of hr modules. Initially, it is launched with the HRMS modul
 - XML-RPC: API and Integration
 ## Finance modules consists of the following submodules
 - Invoice
-- Attendance
-- Recruitment
-- Expense
-- Payroll
-- Leave request
-- Fleet
+- Accounting
+- Customer
+- Dashboard
+- Folow-ups
+- Reporting
+- Payment
    
 
-## Features
-```bash
-- List of key features or functionalities of each modules
-- Highlight any unique aspects of OTES project
- ```
-## Installation
 ### Prerequisites
  ```bash
 - Prerequisites or dependencies (Python, PostgreSQL ,XML,JS,OWL,OS)
@@ -38,7 +32,7 @@ sudo apt update
 ```
 2. **Add System User:**
 ```bash
-sudo useradd -m -d /opt/odoo16 -U -r -s /bin/bash otechuser
+sudo useradd -m -d /stransform/finance -U -r -s /bin/bash finance
 ```
 2. **Install Dependencies:**
 ```bash
@@ -50,7 +44,7 @@ sudo apt install postgresql
 ```
 4. **add a new postgresql use:**
 ```bash
-sudo su - postgres -c "createuser -s otechuser"
+sudo su - postgres -c "createuser -s finance"
 ```
 3. **Install dependencies:**
  ```bash
@@ -58,7 +52,7 @@ sudo su - postgres -c "createuser -s otechuser"
 ```
 4. **add a new postgresql use:**
 ```bash
-sudo su - postgres -c "createuser -s otechuser"
+sudo su - postgres -c "createuser -s finance"
 ```
 5. **Install Wkhtmltopdf:**
 ```bash
@@ -93,12 +87,12 @@ pgit clone https://github.com/STransform/otes.git
     pip3 install wheel
     pip3 install -r requirements.txt
     deactivate
-    mkdir /opt/odoo16/odoo16/custom-addons
+    mkdir /stransform/finance/finance/custom-addons
     exit
 ```
 13. **Create database systemd unit file**
 ```bash 
-sudo nano /etc/hr.conf
+sudo nano /etc/finance.conf
 ```
 14. **Copy and save :**
 ```bash 
@@ -106,14 +100,14 @@ sudo nano /etc/hr.conf
 admin_passwd = .....
 db_host = False
 db_port = False
-db_user = otechuser
+db_user = finance
 db_password = False
-addons_path = /opt/odoo16/odoo16/finance-addons,/opt/odoo16/odoo16/custom-addons
-xmlrpc_port = 8069
+addons_path = /stransform/finance/finance/finance-addons,/stransform/finance/finance/custom-addons
+xmlrpc_port = 8181
 ```
 15. **Create Odoo Systemd Unit file:**
 ```bash
-sudo nano /etc/systemd/system/hr.service
+sudo nano /etc/systemd/system/finance.service
 ```
 16. **Copy and save :**
 ```bash
@@ -127,7 +121,7 @@ SyslogIdentifier=odoo16
 PermissionsStartOnly=true
 User=otechuser
 Group=otechgroup
-ExecStart=/opt/odoo16/odoo16-venv/bin/python3 /opt/odoo16/odoo16/odoo-bin -c /etc/hr.conf
+ExecStart=/stransform/finance/odoo16-venv/bin/python3 /stransform/finance/finance/odoo-bin -c /etc/finance.conf
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target
@@ -138,14 +132,17 @@ sudo systemctl daemon-reload
 ```
 18. **Start service:**
 ```bash
-sudo systemctl start hr
+sudo systemctl start finance
 ```
     
 10. **Check status:**
 ```bash
-sudo systemctl status hr
+sudo systemctl status finance
 ```
-
+10. **Author:**
+```bash
+STransform
+```
 
 10. **Author:**
 ```bash
